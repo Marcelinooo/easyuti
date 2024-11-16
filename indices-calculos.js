@@ -263,11 +263,13 @@ function mostrarCalculo(tipo) {
     // Adiciona rolagem suave para dispositivos móveis
     if (window.innerWidth <= 768) {
         setTimeout(() => {
-            container.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 100);
+            const calculos = document.querySelector('.calculos');
+            calculos.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Adiciona um pequeno offset para não ficar muito no topo
+            window.scrollBy(0, -20);
+        }, 200);
     }
 }
-
 // Função para calcular o resultado
 function calcularResultado(tipo, event) {
     event.preventDefault();
