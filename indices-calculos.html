@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Índices e Cálculos - Portal da Fisioterapia</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="indices-calculos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header id="sidebar">
+        <div class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </div>
+        <h1>Portal da Fisioterapia</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Início</a></li>
+                <li><a href="sinais-vitais.html"><i class="fas fa-heartbeat"></i> Sinais Vitais</a></li>
+                <li><a href="indices-calculos.html" class="active"><i class="fas fa-calculator"></i> Índices e Cálculos</a></li>
+                <li><a href="#exames"><i class="fas fa-flask"></i> Exames Laboratoriais</a></li>
+                <li><a href="#escalas"><i class="fas fa-chart-line"></i> Escalas Funcionais</a></li>
+                <li><a href="#vni"><i class="fas fa-lungs"></i> VNI</a></li>
+                <li><a href="#vm"><i class="fas fa-wind"></i> VM</a></li>
+                <li><a href="#desmame"><i class="fas fa-door-open"></i> Desmame</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="indices-container">
+            <div class="listas">
+                <div class="lista-item" onclick="mostrarCalculo('complacencia')">
+                    <h2>Complacência pulmonar</h2>
+                </div>
+                <div class="lista-item" onclick="mostrarCalculo('volume-minuto')">
+                    <h2>Volume minuto</h2>
+                </div>
+                <div class="lista-item" onclick="mostrarCalculo('resistencia')">
+                    <h2>Resistência da via aérea</h2>
+                </div>
+                <div class="lista-item" onclick="mostrarCalculo('volume-corrente')">
+                    <h2>Volume corrente</h2>
+                </div>
+                <div class="lista-item" onclick="mostrarCalculo('pao2-idade')">
+                    <h2>PaO2 esperado por idade</h2>
+                </div>
+                <div class="lista-item" onclick="mostrarCalculo('pao2-fio2')">
+                    <h2>Relação PaO2 e FiO2</h2>
+                </div>
+                <div class="lista-item" onclick="mostrarCalculo('indice-oxigenacao')">
+                    <h2>Índice de Oxigenação</h2>
+                </div>
+                <div class="lista-item" onclick="mostrarCalculo('indice-tobin')">
+                    <h2>Índice de respiração rápida e superficial</h2>
+                </div>
+                <div class="lista-item" onclick="mostrarCalculo('peso-ideal')">
+                    <h2>Peso Ideal</h2>
+                </div>
+                <div class="lista-item" onclick="mostrarCalculo('imc')">
+                    <h2>Índice de Massa Corporal</h2>
+                </div>
+                <div class="lista-item" onclick="mostrarCalculo('rox')">
+                    <h2>ROX</h2>
+                </div>
+            </div>
+            
+            <div class="calculos" id="calculos-content">
+                <!-- Os conteúdos serão inseridos aqui via JavaScript -->
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Portal da Fisioterapia. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="indices-calculos.js"></script>
+</body>
+</html>

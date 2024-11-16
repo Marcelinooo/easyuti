@@ -1,0 +1,178 @@
+.indices-container {
+    display: flex;
+    gap: 2rem;
+    padding: 1rem;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.listas {
+    flex: 1;
+    min-width: 280px;
+    max-width: 350px;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding-right: 1rem;
+}
+
+.lista-item {
+    background-color: var(--branco);
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 1px solid var(--azul-claro);
+    word-wrap: break-word;
+}
+
+.lista-item:hover {
+    background-color: var(--azul-claro);
+    transform: translateX(5px);
+}
+
+.lista-item h2 {
+    font-size: 1.1rem;
+    color: var(--azul-escuro);
+    line-height: 1.4;
+}
+
+.calculos {
+    flex: 2;
+    background-color: var(--branco);
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid var(--azul-claro);
+    min-width: 0;
+}
+
+.calculo-content {
+    display: none;
+}
+
+.calculo-content.active {
+    display: block;
+}
+
+.calculo-content h3 {
+    color: var(--azul-escuro);
+    margin-bottom: 1.5rem;
+    font-size: 1.4rem;
+}
+
+.calculo-form {
+    margin: 1.5rem 0;
+}
+
+.input-group {
+    margin-bottom: 1.2rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--azul-escuro);
+    font-weight: 500;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    max-width: 300px;
+    font-size: 1rem;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--azul-claro);
+    box-shadow: 0 0 0 2px rgba(135, 206, 235, 0.2);
+}
+
+.btn-calcular {
+    background-color: var(--azul-escuro);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.btn-calcular:hover {
+    background-color: var(--azul-claro);
+}
+
+.resultado {
+    margin-top: 1.5rem;
+    padding: 1.2rem;
+    background-color: #e8f4f8;
+    border-radius: 4px;
+    display: none;
+    font-size: 1.1rem;
+}
+
+.resultado.active {
+    display: block;
+}
+
+.referencia {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eee;
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Estilo para select (usado no cálculo de peso ideal) */
+.input-group select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    max-width: 300px;
+    font-size: 1rem;
+    background-color: white;
+    cursor: pointer;
+}
+
+.input-group select:focus {
+    outline: none;
+    border-color: var(--azul-claro);
+    box-shadow: 0 0 0 2px rgba(135, 206, 235, 0.2);
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .indices-container {
+        flex-direction: column;
+        padding-top: 60px;
+    }
+
+    .listas {
+        max-width: none;
+        max-height: none;
+        padding-right: 0;
+    }
+
+    .calculos {
+        margin-top: 1rem;
+    }
+
+    .lista-item:hover {
+        transform: none;
+    }
+
+    .input-group input,
+    .input-group select {
+        max-width: 100%;
+    }
+
+    .btn-calcular {
+        width: 100%;
+    }
+}
