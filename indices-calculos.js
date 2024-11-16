@@ -223,6 +223,9 @@ function mostrarCalculo(tipo) {
     const content = document.createElement('div');
     content.className = 'calculo-content active';
     content.innerHTML = `
+        <button onclick="voltarParaLista()" class="voltar-btn">
+            <i class="fas fa-arrow-left"></i> Voltar
+        </button>
         <h3>${calculo.titulo}</h3>
         <form class="calculo-form" onsubmit="calcularResultado('${tipo}', event)">
             ${calculo.campos.map(campo => {
@@ -260,19 +263,27 @@ function mostrarCalculo(tipo) {
     });
     event.currentTarget.style.backgroundColor = 'var(--azul-claro)';
 
-    // Nova abordagem para rolagem em dispositivos móveis
+    // Em dispositivos móveis, esconde a lista
     if (window.innerWidth <= 768) {
-        setTimeout(() => {
-            const mainContent = document.querySelector('main');
-            const scrollAmount = mainContent.scrollHeight * 0.35; // Rola 35% da altura total
-            window.scrollTo({
-                top: scrollAmount,
-                behavior: 'smooth'
-            });
-        }, 300);
+        const lista = document.querySelector('.listas');
+        if (lista) {
+            lista.classList.add('hidden');
+        }
     }
 }
-}// Função para calcular o resultado
+
+// Função para voltar para a lista
+function voltarParaLista() {
+    const lista = document.querySelector('.listas');
+    if (lista) {
+        lista.classList.remove('hidden');
+    }
+    // Limpa o conteúdo dos cálculos
+    const container = document.getElementById('calculos-content');
+    container.innerHTML = '';
+}
+
+// Função para calcular o resultado
 function calcularResultado(tipo, event) {
     event.preventDefault();
     const calculo = calculos[tipo];
