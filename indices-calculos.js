@@ -261,16 +261,20 @@ function mostrarCalculo(tipo) {
     event.currentTarget.style.backgroundColor = 'var(--azul-claro)';
 
     // Adiciona rolagem suave para dispositivos móveis
-    if (window.innerWidth <= 768) {
-        setTimeout(() => {
-            const calculos = document.querySelector('.calculos');
-            calculos.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            // Adiciona um pequeno offset para não ficar muito no topo
-            window.scrollBy(0, -20);
-        }, 200);
-    }
-}
-// Função para calcular o resultado
+    setTimeout(() => {
+        const targetElement = document.querySelector('.calculo-form');
+        if (targetElement) {
+            const headerOffset = 60;
+            const elementPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+    }, 100);
+}// Função para calcular o resultado
 function calcularResultado(tipo, event) {
     event.preventDefault();
     const calculo = calculos[tipo];
