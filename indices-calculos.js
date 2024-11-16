@@ -259,6 +259,13 @@ function mostrarCalculo(tipo) {
         item.style.backgroundColor = 'var(--branco)';
     });
     event.currentTarget.style.backgroundColor = 'var(--azul-claro)';
+
+    // Adiciona rolagem suave para dispositivos móveis
+    if (window.innerWidth <= 768) {
+        setTimeout(() => {
+            container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+    }
 }
 
 // Função para calcular o resultado
