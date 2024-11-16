@@ -260,20 +260,18 @@ function mostrarCalculo(tipo) {
     });
     event.currentTarget.style.backgroundColor = 'var(--azul-claro)';
 
-    // Adiciona rolagem suave para dispositivos móveis
-    setTimeout(() => {
-        const targetElement = document.querySelector('.calculo-form');
-        if (targetElement) {
-            const headerOffset = 60;
-            const elementPosition = targetElement.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
+    // Nova abordagem para rolagem em dispositivos móveis
+    if (window.innerWidth <= 768) {
+        setTimeout(() => {
+            const mainContent = document.querySelector('main');
+            const scrollAmount = mainContent.scrollHeight * 0.35; // Rola 35% da altura total
             window.scrollTo({
-                top: offsetPosition,
+                top: scrollAmount,
                 behavior: 'smooth'
             });
-        }
-    }, 100);
+        }, 300);
+    }
+}
 }// Função para calcular o resultado
 function calcularResultado(tipo, event) {
     event.preventDefault();
