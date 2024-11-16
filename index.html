@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal da Fisioterapia</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4682B4">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+</head>
+<body>
+    <div class="install-prompt" id="installPrompt">
+        <div class="prompt-content">
+            <p>Instale nosso app para melhor experiência!</p>
+            <button id="installButton">Instalar</button>
+            <button id="closePrompt">Agora não</button>
+        </div>
+    </div>
+
+    <header id="sidebar">
+        <div class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </div>
+        <h1>Portal da Fisioterapia</h1>
+        <nav>
+            <ul>
+                <li><a href="#sinais-vitais"><i class="fas fa-heartbeat"></i> Sinais Vitais</a></li>
+                <li><a href="#indices"><i class="fas fa-calculator"></i> Índices e Cálculos</a></li>
+                <li><a href="#exames"><i class="fas fa-flask"></i> Exames Laboratoriais</a></li>
+                <li><a href="#escalas"><i class="fas fa-chart-line"></i> Escalas Funcionais</a></li>
+                <li><a href="#vni"><i class="fas fa-lungs"></i> VNI</a></li>
+                <li><a href="#vm"><i class="fas fa-wind"></i> VM</a></li>
+                <li><a href="#desmame"><i class="fas fa-door-open"></i> Desmame</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="cards-container">
+            <div class="card" onclick="location.href='#sinais-vitais'">
+                <i class="fas fa-heartbeat"></i>
+                <h3>Sinais Vitais</h3>
+            </div>
+            <div class="card" onclick="location.href='#indices'">
+                <i class="fas fa-calculator"></i>
+                <h3>Índices e Cálculos</h3>
+            </div>
+            <div class="card" onclick="location.href='#exames'">
+                <i class="fas fa-flask"></i>
+                <h3>Exames Laboratoriais</h3>
+            </div>
+            <div class="card" onclick="location.href='#escalas'">
+                <i class="fas fa-chart-line"></i>
+                <h3>Escalas Funcionais</h3>
+            </div>
+            <div class="card" onclick="location.href='#vni'">
+                <i class="fas fa-lungs"></i>
+                <h3>VNI</h3>
+            </div>
+            <div class="card" onclick="location.href='#vm'">
+                <i class="fas fa-wind"></i>
+                <h3>VM</h3>
+            </div>
+            <div class="card" onclick="location.href='#desmame'">
+                <i class="fas fa-door-open"></i>
+                <h3>Desmame</h3>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Portal da Fisioterapia. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
