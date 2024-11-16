@@ -65,9 +65,19 @@
 @media (max-width: 768px) {
     .sinais-vitais-container {
         flex-direction: column;
+        padding-top: 60px;
     }
 
     .listas {
         max-width: none;
+    }
+
+    .parametros {
+        margin-top: 1rem;
+    }
+
+    .lista-item:hover {
+        transform: none;
+        background-color: var(--azul-claro);
     }
 }

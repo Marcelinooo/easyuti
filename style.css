@@ -163,12 +163,16 @@ footer {
 /* Mobile Styles */
 @media (max-width: 768px) {
     header {
+        position: fixed;
         left: -250px;
-        transition: 0.3s;
+        top: 0;
+        bottom: 0;
+        transition: all 0.3s ease;
     }
 
     header.active {
         left: 0;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
     }
 
     .menu-toggle {
@@ -179,9 +183,10 @@ footer {
         z-index: 1001;
         background-color: var(--azul-escuro);
         color: white;
-        padding: 10px;
+        padding: 10px 15px;
         border-radius: 5px;
         cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
 
     main {
@@ -198,122 +203,9 @@ footer {
         grid-template-columns: 1fr;
         padding: 1rem;
     }
-}
 
-// Registro do Service Worker
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js')
-            .then(registration => {
-                console.log('ServiceWorker registrado com sucesso:', registration.scope);
-            })
-            .catch(error => {
-                console.log('Falha ao registrar o ServiceWorker:', error);
-            });
-    });
-}
-
-// Menu mobile
-document.addEventListener('DOMContentLoaded', function() {
-    const menuToggle = document.getElementById('menuToggle');
-    const sidebar = document.getElementById('sidebar');
-    const links = document.querySelectorAll('nav a');
-
-    menuToggle.addEventListener('click', function() {
-        sidebar.classList.toggle('active');
-    });
-
-    // Fechar menu ao clicar em um link (mobile)
-    links.forEach(link => {
-        link.addEventListener('click', function() {
-            if (window.innerWidth <= 768) {
-                sidebar.classList.remove('active');
-            }
-        });
-    });
-
-    // Fechar menu ao clicar fora (mobile)
-    document.addEventListener('click', function(e) {
-        if (window.innerWidth <= 768 && 
-            !sidebar.contains(e.target) && 
-            !menuToggle.contains(e.target)) {
-            sidebar.classList.remove('active');
-        }
-    });
-});
-
-// PWA Installation
-let deferredPrompt;
-
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    document.getElementById('installPrompt').style.display = 'block';
-});
-
-document.getElementById('installButton').addEventListener('click', async () => {
-    if (deferredPrompt) {
-        deferredPrompt.prompt();
-        const result = await deferredPrompt.userChoice;
-        if (result.outcome === 'accepted') {
-            console.log('App instalado com sucesso');
-        }
-        deferredPrompt = null;
-        document.getElementById('installPrompt').style.display = 'none';
+    body.menu-active main {
+        opacity: 0.7;
+        pointer-events: none;
     }
-});
-
-document.getElementById('closePrompt').addEventListener('click', () => {
-    document.getElementById('installPrompt').style.display = 'none';
-});
-
-const CACHE_NAME = 'fisio-portal-v1';
-const urlsToCache = [
-    '/',
-    '/index.html',
-    '/style.css',
-    '/script.js',
-    '/manifest.json',
-    '/icons/icon-192x192.png',
-    '/icons/icon-512x512.png',
-    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'
-];
-
-self.addEventListener('install', event => {
-    event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(cache => cache.addAll(urlsToCache))
-    );
-});
-
-self.addEventListener('fetch', event => {
-    event.respondWith(
-        caches.match(event.request)
-            .then(response => response || fetch(event.request))
-    );
-});
-
-{
-    "name": "Portal da Fisioterapia",
-    "short_name": "Fisio Portal",
-    "description": "Portal de recursos para fisioterapeutas",
-    "start_url": "/index.html",
-    "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#4682B4",
-    "orientation": "portrait-primary",
-    "icons": [
-        {
-            "src": "icons/icon-192x192.png",
-            "sizes": "192x192",
-            "type": "image/png",
-            "purpose": "any maskable"
-        },
-        {
-            "src": "icons/icon-512x512.png",
-            "sizes": "512x512",
-            "type": "image/png",
-            "purpose": "any maskable"
-        }
-    ]
 }
