@@ -129,51 +129,33 @@ const calculos = {
                   'FR = Frequência respiratória (rpm)<br>' +
                   'VC = Volume corrente (mL)',
         referencia: 'Valores de referência:<br>' +
-                   '< 105: Sucesso no desmame<br>' +
-                   '> 105: Provável falha no desmame',
+                   '> 0.8: Baixo risco de falha da CNAF<br>' +
+                   '< 0.6: Alto risco de falha da CNAF',
         campos: [
             { id: 'fr', label: 'Frequência respiratória (rpm)', type: 'number' },
             { id: 'vc', label: 'Volume corrente (mL)', type: 'number' }
         ],
         calcular: (valores) => {
-            return ((valores.fr / (valores.vc/1000))).toFixed(1);
+            return (valores.fr / (valores.vc / 1000)).toFixed(2);
         }
     },
     'peso-ideal': {
         titulo: 'Peso Ideal',
-        formula: 'Homens: 50 + 2.3 × (altura(cm)/2.54 - 60)<br>Mulheres: 45.5 + 2.3 × (altura(cm)/2.54 - 60)',
-        descricao: 'Cálculo do peso ideal baseado na altura e sexo do paciente.',
-        referencia: 'Fórmula de Devine',
+        formula: 'Peso Ideal = 22 × (Altura em metros)²',
+        descricao: 'Cálculo do peso ideal baseado na altura do paciente.',
+        referencia: 'Valores recomendados: 22 kg/m²',
         campos: [
-            { id: 'altura', label: 'Altura (cm)', type: 'number' },
-            { 
-                id: 'sexo', 
-                label: 'Sexo', 
-                type: 'select', 
-                options: [
-                    { value: 'M', label: 'Masculino' },
-                    { value: 'F', label: 'Feminino' }
-                ]
-            }
+            { id: 'altura', label: 'Altura (m)', type: 'number', step: '0.01' }
         ],
         calcular: (valores) => {
-            const alturaPolegadas = valores.altura / 2.54;
-            if (valores.sexo === 'M') {
-                return (50 + 2.3 * (alturaPolegadas - 60)).toFixed(1) + ' kg';
-            } else {
-                return (45.5 + 2.3 * (alturaPolegadas - 60)).toFixed(1) + ' kg';
-            }
+            return (22 * (valores.altura * valores.altura)).toFixed(2) + ' kg';
         }
     },
     'imc': {
-        titulo: 'Índice de Massa Corporal',
-        formula: 'IMC = peso / (altura)²',
-        descricao: 'Onde:<br>' +
-                  'IMC = Índice de Massa Corporal (kg/m²)<br>' +
-                  'Peso em kg<br>' +
-                  'Altura em metros',
-        referencia: 'Classificação:<br>' +
-                   '< 18.5: Abaixo do peso<br>' +
+        titulo: 'Índice de Massa Corporal (IMC)',
+        formula: 'IMC = Peso (kg) / (Altura (m)²)',
+        descricao: 'Cálculo do IMC baseado no peso e altura do paciente.',
+        referencia: 'Valores de referência:<br>' +
                    '18.5-24.9: Peso normal<br>' +
                    '25-29.9: Sobrepeso<br>' +
                    '30-34.9: Obesidade grau I<br>' +
@@ -205,7 +187,7 @@ const calculos = {
             { id: 'fr', label: 'Frequência respiratória (rpm)', type: 'number' }
         ],
         calcular: (valores) => {
-            return ((valores.spo2/valores.fio2) / valores.fr).toFixed(2);
+            return ((valores.spo2 / valores.fio2) / valores.fr).toFixed(2);
         }
     }
 };
@@ -223,31 +205,15 @@ function mostrarCalculo(tipo) {
     const content = document.createElement('div');
     content.className = 'calculo-content active';
     content.innerHTML = `
-        <button onclick="voltarParaLista()" class="voltar-btn">
-            <i class="fas fa-arrow-left"></i> Voltar
-        </button>
         <h3>${calculo.titulo}</h3>
         <form class="calculo-form" onsubmit="calcularResultado('${tipo}', event)">
             ${calculo.campos.map(campo => {
-                if (campo.type === 'select') {
-                    return `
-                        <div class="input-group">
-                            <label for="${campo.id}">${campo.label}</label>
-                            <select id="${campo.id}" required>
-                                ${campo.options.map(option => 
-                                    `<option value="${option.value}">${option.label}</option>`
-                                ).join('')}
-                            </select>
-                        </div>
-                    `;
-                } else {
-                    return `
-                        <div class="input-group">
-                            <label for="${campo.id}">${campo.label}</label>
-                            <input type="${campo.type}" id="${campo.id}" required>
-                        </div>
-                    `;
-                }
+                return `
+                    <div class="input-group">
+                        <label for="${campo.id}">${campo.label}</label>
+                        <input type="${campo.type}" id="${campo.id}" required>
+                    </div>
+                `;
             }).join('')}
             <button type="submit" class="btn-calcular">Calcular</button>
         </form>
@@ -255,32 +221,11 @@ function mostrarCalculo(tipo) {
         <div class="referencia">${calculo.referencia}</div>
     `;
 
+    // Adiciona o conteúdo ao container
     container.appendChild(content);
 
-    // Atualiza o estilo dos itens da lista
-    document.querySelectorAll('.lista-item').forEach(item => {
-        item.style.backgroundColor = 'var(--branco)';
-    });
-    event.currentTarget.style.backgroundColor = 'var(--azul-claro)';
-
-    // Em dispositivos móveis, esconde a lista
-    if (window.innerWidth <= 768) {
-        const lista = document.querySelector('.listas');
-        if (lista) {
-            lista.classList.add('hidden');
-        }
-    }
-}
-
-// Função para voltar para a lista
-function voltarParaLista() {
-    const lista = document.querySelector('.listas');
-    if (lista) {
-        lista.classList.remove('hidden');
-    }
-    // Limpa o conteúdo dos cálculos
-    const container = document.getElementById('calculos-content');
-    container.innerHTML = '';
+    // Rola para o conteúdo do cálculo
+    container.scrollIntoView({ behavior: 'smooth' });
 }
 
 // Função para calcular o resultado
